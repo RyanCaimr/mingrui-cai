@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f7b6c" />
+  <title>初入华园的一天｜迎新互动故事</title>
+  <style>
+    :root{
+      --green:#0f7b6c;
+      --green2:#65b8a5;
+      --cream:#fff9ed;
+      --ink:#24332f;
+      --muted:#6f7d79;
+      --card:#ffffffee;
+      --line:#dfe9e5;
+      --gold:#f5b940;
+      --shadow:0 16px 40px rgba(31, 83, 70, .16);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:
+      radial-gradient(circle at 15% 12%,rgba(255,255,255,.8) 0 6%,transparent 7%),
+      radial-gradient(circle at 88% 20%,rgba(245,185,64,.18) 0 8%,transparent 9%),
+      linear-gradient(160deg,#dff4ee 0%,#fff8e8 58%,#f6e7d9 100%);
+      overflow-x:hidden;
+    }
+    body:before,body:after{
+      content:"";position:fixed;border-radius:50%;filter:blur(1px);z-index:0;pointer-events:none
+    }
+    body:before{width:210px;height:210px;right:-90px;bottom:6%;background:rgba(101,184,165,.18)}
+    body:after{width:150px;height:150px;left:-80px;top:36%;background:rgba(245,185,64,.14)}
+    .app{position:relative;z-index:1;min-height:100vh;display:flex;justify-content:center;padding:18px}
+    .phone{
+      width:min(100%,460px);min-height:calc(100vh - 36px);display:flex;flex-direction:column;
+      background:rgba(255,255,255,.34);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.7);
+      border-radius:28px;box-shadow:var(--shadow);overflow:hidden
+    }
+    .topbar{padding:18px 20px 10px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-size:14px;font-weight:800;letter-spacing:.08em;color:var(--green)}
+    .step{font-size:12px;color:var(--muted)}
+    .progress{height:5px;background:#e6efec;margin:0 20px;border-radius:99px;overflow:hidden}
+    .progress > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--green2));transition:.45s ease}
+    .screen{display:none;flex:1;padding:22px 20px 26px;animation:fade .45s ease}
+    .screen.active{display:flex;flex-direction:column}
+    @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .hero{padding:16px 4px 10px}
+    .kicker{font-size:13px;color:var(--green);font-weight:800;letter-spacing:.12em}
+    h1{font-size:34px;line-height:1.12;margin:10px 0 12px}
+    h2{font-size:26px;line-height:1.25;margin:8px 0 12px}
+    p{font-size:16px;line-height:1.8;margin:8px 0;color:#3e4e49}
+    .illustration{
+      height:210px;margin:8px 0 20px;border-radius:24px;position:relative;overflow:hidden;
+      background:linear-gradient(180deg,#c7e9e0 0 58%,#f5d6a4 59% 100%);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)
+    }
+    .sun{position:absolute;width:56px;height:56px;border-radius:50%;background:#ffd76b;right:32px;top:26px;box-shadow:0 0 0 12px rgba(255,215,107,.18)}
+    .hill{position:absolute;left:-10%;bottom:42px;width:120%;height:90px;background:#7ebaa4;border-radius:50% 50% 0 0/100% 100% 0 0}
+    .gate{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);width:190px;height:112px}
+    .gate:before,.gate:after{content:"";position:absolute;bottom:0;width:28px;height:95px;background:#f4efe4;border:5px solid #6b8b82}
+    .gate:before{left:18px}.gate:after{right:18px}
+    .gatebar{position:absolute;left:0;right:0;top:18px;height:26px;background:#f4efe4;border:5px solid #6b8b82;border-radius:4px}
+    .gatetext{position:absolute;top:21px;left:0;right:0;text-align:center;font-weight:900;font-size:13px;letter-spacing:.16em;color:#46685e}
+    .road{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:72px;height:88px;background:#e8c99d;clip-path:polygon(28% 0,72% 0,100% 100%,0 100%)}
+    .leaf{position:absolute;width:17px;height:9px;background:#2f8a70;border-radius:100% 0 100% 0;transform:rotate(var(--r))}
+    .l1{left:35px;top:32px;--r:25deg}.l2{left:60px;top:62px;--r:-30deg}.l3{right:76px;top:91px;--r:42deg}
+    .form{display:grid;gap:12px;margin-top:6px}
+    input,select{
+      width:100%;padding:15px 16px;border-radius:15px;border:1px solid var(--line);
+      background:#fff;font-size:16px;color:var(--ink);outline:none
+    }
+    input:focus,select:focus{border-color:var(--green2);box-shadow:0 0 0 4px rgba(101,184,165,.13)}
+    .btn{
+      border:0;border-radius:16px;padding:15px 18px;font-size:16px;font-weight:800;cursor:pointer;
+      background:linear-gradient(135deg,var(--green),#2a9a84);color:#fff;box-shadow:0 10px 24px rgba(15,123,108,.22);
+      transition:.2s ease;width:100%
+    }
+    .btn:active{transform:scale(.98)}
+    .btn.secondary{background:#fff;color:var(--green);box-shadow:none;border:1px solid #cde1db}
+    .story-card{
+      background:var(--card);border:1px solid rgba(255,255,255,.85);border-radius:22px;padding:20px;
+      box-shadow:0 14px 30px rgba(38,91,77,.10);margin-bottom:18px
+    }
+    .scene-tag{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:var(--green);background:#e5f5f0;padding:7px 10px;border-radius:99px}
+    .choices{display:grid;gap:12px;margin-top:8px}
+    .choice{
+      display:flex;gap:13px;align-items:flex-start;text-align:left;border:1px solid var(--line);
+      background:#fff;border-radius:17px;padding:15px 15px;cursor:pointer;transition:.2s ease
+    }
+    .choice:hover{border-color:var(--green2);transform:translateY(-1px);box-shadow:0 8px 18px rgba(35,91,76,.09)}
+    .choice .icon{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:#edf8f4;font-size:21px;flex:none}
+    .choice strong{font-size:15px;display:block;margin:2px 0 5px}
+    .choice span{font-size:13px;color:var(--muted);line-height:1.55}
+    .ending{
+      background:linear-gradient(150deg,#fffdf7,#eaf7f3);border:1px solid #d8eae4;border-radius:24px;
+      padding:22px;text-align:center;box-shadow:var(--shadow)
+    }
+    .badge{
+      width:104px;height:104px;border-radius:50%;display:grid;place-items:center;margin:4px auto 12px;
+      font-size:48px;background:linear-gradient(145deg,#fff,#dff2ec);border:7px solid rgba(15,123,108,.10);
+      box-shadow:0 12px 26px rgba(15,123,108,.14)
+    }
+    .ending-name{font-size:30px;font-weight:900;margin:8px 0;color:var(--green)}
+    .keywords{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:13px 0}
+    .keywords span{font-size:12px;padding:7px 10px;border-radius:99px;background:#fff;border:1px solid #dce9e5}
+    .lucky{
+      margin:18px 0;background:#fff;border:1px dashed #e4b35b;border-radius:17px;padding:15px
+    }
+    .lucky small{display:block;color:var(--muted);margin-bottom:5px}
+    .lucky b{font-size:22px;letter-spacing:.08em;color:#b97700}
+    .tip{font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px}
+    .footer{padding:0 20px 18px;text-align:center;color:#7e8b87;font-size:11px}
+    .toast{
+      position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
+      background:#203b34;color:#fff;padding:12px 16px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;z-index:9
+    }
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .hidden{display:none!important}
+    @media (max-width:380px){
+      h1{font-size:30px}.illustration{height:190px}.screen{padding-left:16px;padding-right:16px}
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <main class="phone">
+      <div class="topbar">
+        <div class="brand">华园迎新 · 互动故事</div>
+        <div class="step" id="stepText">故事尚未开始</div>
+      </div>
+      <div class="progress"><span id="progressBar"></span></div>
+
+      <section class="screen active" id="startScreen">
+        <div class="hero">
+          <div class="kicker">WELCOME TO SCUT</div>
+          <h1>初入华园的<br>第一天</h1>
+          <p>拖着行李走进校园，你的每个选择，都将通向不同的华园结局。</p>
+        </div>
+        <div class="illustration" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="hill"></div>
+          <div class="road"></div>
+          <div class="gate">
+            <div class="gatebar"></div>
+            <div class="gatetext">华 南 理 工 大 学</div>
+          </div>
+          <div class="leaf l1"></div><div class="leaf l2"></div><div class="leaf l3"></div>
+        </div>
+        <div class="form">
+          <input id="nameInput" maxlength="12" placeholder="请输入姓名或昵称" />
+          <select id="majorInput">
+            <option value="">请选择你的录取专业</option>
+            <option>工科类</option>
+            <option>理科类</option>
+            <option>经管类</option>
+            <option>人文社科类</option>
+            <option>设计艺术类</option>
+            <option>其他专业</option>
+          </select>
+          <button class="btn" id="startBtn">开启我的华园故事</button>
+        </div>
+      </section>
+
+      <section class="screen" id="storyScreen">
+        <div class="story-card">
+          <span class="scene-tag" id="sceneTag">第一幕</span>
+          <h2 id="sceneTitle">故事标题</h2>
+          <p id="sceneText">故事内容</p>
+        </div>
+        <div class="choices" id="choices"></div>
+      </section>
+
+      <section class="screen" id="endingScreen">
+        <div class="ending">
+          <div class="badge" id="endingIcon">🌿</div>
+          <div style="font-size:13px;color:var(--muted)">你的华园新生结局是</div>
+          <div class="ending-name" id="endingName">校园探索家</div>
+          <p id="endingDesc">你总能在熟悉与未知之间，找到自己的节奏。</p>
+          <div class="keywords" id="keywords"></div>
+          <div class="lucky">
+            <small>专属抽奖幸运码</small>
+            <b id="luckyCode">SCUT-0000</b>
+          </div>
+          <button class="btn" id="copyBtn">复制结果与幸运码</button>
+          <button class="btn secondary" id="restartBtn" style="margin-top:10px">重新体验故事</button>
+          <div class="tip">正式上线时，可将幸运码提交到后台数据库，并绑定学号，限制每人仅获取一次抽奖资格。</div>
+        </div>
+      </section>
+
+      <div class="footer">互动原型 · 数据仅保存在当前浏览器中</div>
+    </main>
+  </div>
+  <div class="toast" id="toast">已复制</div>
+
+<script>
+  const screens = {
+    start: document.getElementById('startScreen'),
+    story: document.getElementById('storyScreen'),
+    ending: document.getElementById('endingScreen')
+  };
+  const progressBar = document.getElementById('progressBar');
+  const stepText = document.getElementById('stepText');
+  const choicesBox = document.getElementById('choices');
+  const sceneTag = document.getElementById('sceneTag');
+  const sceneTitle = document.getElementById('sceneTitle');
+  const sceneText = document.getElementById('sceneText');
+  const toast = document.getElementById('toast');
+
+  let player = { name:'', major:'', scores:{explorer:0,social:0,scholar:0,foodie:0}, history:[] };
+  let sceneIndex = 0;
+
+  const scenes = [
+    {
+      tag:'第一幕 · 初见华园',
+      title:'校门口的三条路',
+      text:'报到手续办完后，你还不熟悉校园。此时距离宿舍集合还有一小时，你决定先去……',
+      choices:[
+        {icon:'🗺️',title:'沿着校园地图探索',desc:'去寻找百步梯、图书馆和那些只在照片里见过的地方。',score:'explorer'},
+        {icon:'👋',title:'加入新生聊天局',desc:'主动和旁边的新同学打招呼，一起结伴行动。',score:'social'},
+        {icon:'📚',title:'先去图书馆看看',desc:'提前感受大学的学习氛围，顺便规划未来。',score:'scholar'},
+        {icon:'🍜',title:'直奔饭堂觅食',desc:'大学生活从认识饭堂开始，先找到自己的第一顿校园饭。',score:'foodie'}
+      ]
+    },
+    {
+      tag:'第二幕 · 意外插曲',
+      title:'突如其来的夏日阵雨',
+      text:'天空忽然落下雨点。你身边只有一把伞，而不远处还有几位没有带伞的新生。',
+      choices:[
+        {icon:'☂️',title:'邀请大家一起撑伞',desc:'虽然有点挤，但认识新朋友的机会可不能错过。',score:'social'},
+        {icon:'🏃',title:'寻找最近的避雨路线',desc:'观察周围建筑，快速规划一条不淋雨的路线。',score:'explorer'},
+        {icon:'📝',title:'在屋檐下整理报到资料',desc:'利用等待时间确认课程、宿舍和接下来的安排。',score:'scholar'},
+        {icon:'🥤',title:'去附近买几杯饮料',desc:'一边避雨，一边和大家分享第一杯校园饮品。',score:'foodie'}
+      ]
+    },
+    {
+      tag:'第三幕 · 开学彩蛋',
+      title:'你发现了一张神秘邀请卡',
+      text:'雨停后，一张印着“华园新生隐藏任务”的卡片出现在长椅旁。它邀请你完成最后一个选择。',
+      choices:[
+        {icon:'🔍',title:'寻找卡片背后的隐藏地点',desc:'也许校园里还藏着不为人知的惊喜。',score:'explorer'},
+        {icon:'🎤',title:'邀请路过的新生组队挑战',desc:'和陌生人一起完成任务，故事才更有意思。',score:'social'},
+        {icon:'🧠',title:'分析卡片上的图案和文字',desc:'先理清线索，再用最可靠的方式完成挑战。',score:'scholar'},
+        {icon:'🎁',title:'去寻找传说中的迎新补给站',desc:'听说完成后可以获得小零食和神秘纪念品。',score:'foodie'}
+      ]
+    }
+  ];
+
+  const endings = {
+    explorer:{
+      icon:'🧭',name:'华园探索家',
+      desc:'你对未知始终保持好奇。未来的华园生活里，你会把每条小路都走成自己的成长地图。',
+      keywords:['好奇心','行动力','隐藏地图']
+    },
+    social:{
+      icon:'✨',name:'社交能量王',
+      desc:'你擅长让陌生的相遇变得自然。也许大学里最珍贵的故事，就从你的第一句“你好”开始。',
+      keywords:['热情','连接力','团队感']
+    },
+    scholar:{
+      icon:'📖',name:'学术冲浪员',
+      desc:'你习惯在行动前先思考，在热闹中仍保有自己的节奏。华园将成为你持续探索知识的起点。',
+      keywords:['专注','规划力','求知欲']
+    },
+    foodie:{
+      icon:'🍀',name:'生活发现家',
+      desc:'你总能捕捉生活里细小而真实的快乐。大学不只有课堂，还有值得慢慢品尝的每一天。',
+      keywords:['松弛感','分享欲','幸福力']
+    }
+  };
+
+  function switchScreen(name){
+    Object.values(screens).forEach(s=>s.classList.remove('active'));
+    screens[name].classList.add('active');
+  }
+
+  function updateProgress(){
+    const percent = sceneIndex === 0 ? 0 : Math.min(100, (sceneIndex / scenes.length) * 100);
+    progressBar.style.width = percent + '%';
+    stepText.textContent = sceneIndex === 0 ? '故事尚未开始' : `第 ${Math.min(sceneIndex, scenes.length)} / ${scenes.length} 幕`;
+  }
+
+  function startStory(){
+    const name = document.getElementById('nameInput').value.trim();
+    const major = document.getElementById('majorInput').value;
+    if(!name || !major){
+      showToast('请先填写昵称并选择专业');
+      return;
+    }
+    player = {name, major, scores:{explorer:0,social:0,scholar:0,foodie:0}, history:[]};
+    sceneIndex = 0;
+    switchScreen('story');
+    renderScene();
+  }
+
+  function renderScene(){
+    if(sceneIndex >= scenes.length){
+      showEnding();
+      return;
+    }
+    const scene = scenes[sceneIndex];
+    sceneTag.textContent = scene.tag;
+    sceneTitle.textContent = scene.title;
+    sceneText.textContent = scene.text;
+    choicesBox.innerHTML = '';
+    scene.choices.forEach((choice, idx)=>{
+      const btn = document.createElement('button');
+      btn.className = 'choice';
+      btn.innerHTML = `
+        <div class="icon">${choice.icon}</div>
+        <div><strong>${choice.title}</strong><span>${choice.desc}</span></div>`;
+      btn.addEventListener('click',()=>selectChoice(choice, idx));
+      choicesBox.appendChild(btn);
+    });
+    sceneIndex += 1;
+    updateProgress();
+  }
+
+  function selectChoice(choice, index){
+    player.scores[choice.score] += 1;
+    player.history.push({scene:sceneIndex, choice:index, score:choice.score});
+    renderScene();
+  }
+
+  function getEndingKey(){
+    const entries = Object.entries(player.scores);
+    const max = Math.max(...entries.map(x=>x[1]));
+    const tied = entries.filter(x=>x[1]===max).map(x=>x[0]);
+    if(tied.length===1) return tied[0];
+
+    const order = player.history.map(h=>h.score).reverse();
+    return order.find(k=>tied.includes(k)) || tied[0];
+  }
+
+  function makeLuckyCode(){
+    const base = `${player.name}|${player.major}|${JSON.stringify(player.history)}|${new Date().toDateString()}`;
+    let hash = 0;
+    for(let i=0;i<base.length;i++){
+      hash = ((hash << 5) - hash) + base.charCodeAt(i);
+      hash |= 0;
+    }
+    const num = Math.abs(hash)%10000;
+    return `SCUT-${String(num).padStart(4,'0')}`;
+  }
+
+  function showEnding(){
+    const key = getEndingKey();
+    const ending = endings[key];
+    const code = makeLuckyCode();
+
+    document.getElementById('endingIcon').textContent = ending.icon;
+    document.getElementById('endingName').textContent = ending.name;
+    document.getElementById('endingDesc').textContent = `${player.name}同学，${ending.desc}`;
+    document.getElementById('luckyCode').textContent = code;
+    const kw = document.getElementById('keywords');
+    kw.innerHTML = ending.keywords.map(x=>`<span>${x}</span>`).join('');
+
+    localStorage.setItem('huayuan_story_result', JSON.stringify({
+      name:player.name, major:player.major, ending:key, code, time:Date.now()
+    }));
+
+    switchScreen('ending');
+    progressBar.style.width = '100%';
+    stepText.textContent = '故事完成';
+  }
+
+  async function copyResult(){
+    const text = `我的华园新生结局：${document.getElementById('endingName').textContent}\n专属幸运码：${document.getElementById('luckyCode').textContent}\n#初入华园的第一天#`;
+    try{
+      await navigator.clipboard.writeText(text);
+      showToast('结果与幸运码已复制');
+    }catch(e){
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); ta.remove();
+      showToast('结果与幸运码已复制');
+    }
+  }
+
+  function restart(){
+    sceneIndex = 0;
+    progressBar.style.width = '0';
+    stepText.textContent = '故事尚未开始';
+    switchScreen('start');
+  }
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer=setTimeout(()=>toast.classList.remove('show'),1800);
+  }
+
+  document.getElementById('startBtn').addEventListener('click',startStory);
+  document.getElementById('copyBtn').addEventListener('click',copyResult);
+  document.getElementById('restartBtn').addEventListener('click',restart);
+  updateProgress();
+</script>
+</body>
+</html>
